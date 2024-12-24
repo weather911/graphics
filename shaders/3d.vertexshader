@@ -1,0 +1,26 @@
+#version 330 core
+
+layout(location = 0) in float height;
+layout(location = 1) in vec2 model;
+layout(location = 2) in vec3 normal;
+
+out float ht;
+out vec3 norm;
+out vec2 deg;
+
+uniform mat4 VP;
+uniform vec2 tilePos;
+
+void main() {
+
+	float lon = radians(model.x+tilePos.x);
+	float lat = radians(model.y+tilePos.y);
+	float h = height;
+	if(h > 9000 || h < -500) h = 0;
+	vec3 world = (6371+h/1000)*vec3(sin(lon)*cos(lat), sin(lat), cos(lon)*cos(lat));
+	gl_Position = VP*vec4(world, 1);
+	ht = height;
+	norm = normal;
+	deg = model+tilePos;
+}
+

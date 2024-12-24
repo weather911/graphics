@@ -1,0 +1,19 @@
+#version 330 core
+
+layout(location = 0) in float height;
+layout(location = 1) in vec2 model;
+
+out float ht;
+
+uniform vec3 pos;
+uniform vec2 tilePos;
+uniform float windowRatio;
+
+void main(){
+
+	float x = pos.z*cos(radians(pos.y))*(model.x+tilePos.x-pos.x)/windowRatio;
+	float y = pos.z*(model.y+tilePos.y-pos.y);
+	gl_Position = vec4(x, y, 0, 1);
+	ht = height;
+}
+

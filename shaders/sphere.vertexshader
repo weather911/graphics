@@ -1,0 +1,11 @@
+#version 330 core
+
+layout(location = 0) in vec3 model;
+
+uniform mat4 VP;
+
+void main(){
+
+	gl_Position = VP*vec4(6371*model, 1);
+}
+
